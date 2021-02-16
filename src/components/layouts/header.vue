@@ -1,13 +1,13 @@
 <template>
   <header class="header">
-    <el-row type="flex" align="center">
+    <el-row type="flex" align="center" style="width: 100%">
       <el-col :span="1" :xs="3" class="center">
         <button class="none menu-btn">
           <i :class="leftMenuVisible ? 'el-icon-circle-close' : 'el-icon-s-fold'"
           @click.self.stop="changeMenuVisible"></i>
         </button>
       </el-col>
-      <el-col :span="22" :xs="18" class="center">标题</el-col>
+      <el-col :span="22" :xs="18" class="center">{{ title }}</el-col>
       <el-col :span="1" :xs="3" class="center">右</el-col>
     </el-row>
   </header>
@@ -21,13 +21,15 @@ export default {
       'changeMenuVisible'
     ])
   },
-  computed: mapState(['leftMenuVisible'])
+  computed: mapState(['leftMenuVisible', 'title'])
 }
 </script>
 
 <style lang="scss">
 .header{
-  padding: 15px 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
   background-color: #fff;
   box-shadow: 13px 2px 12px 0 rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid #dcdfe6;

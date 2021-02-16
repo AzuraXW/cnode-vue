@@ -3,7 +3,11 @@
     <menuVue></menuVue>
     <div :class="{collapse: leftMenuVisible}" class="content" @click="collapseMenu">
       <headerVue></headerVue>
-      <router-view/>
+        <div class="topic-wrapper">
+          <el-scrollbar>
+          <router-view/>
+          </el-scrollbar>
+        </div>
     </div>
   </div>
 </template>
@@ -43,6 +47,15 @@ export default {
   top: 0;
   &.collapse{
     transform: translateX(251px);
+  }
+  .topic-wrapper{
+    height: 100vh;
+    .el-scrollbar{
+      height: 100%;
+    }
+    .el-scrollbar__thumb{
+      background-color: red;
+    }
   }
 }
 </style>

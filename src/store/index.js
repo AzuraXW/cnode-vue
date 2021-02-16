@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    leftMenuVisible: false
+    leftMenuVisible: false,
+    title: '全部'
   },
   mutations: {
     changeMenuVisible (state) {
       state.leftMenuVisible = !state.leftMenuVisible
+    },
+    changeTitle (state, payload) {
+      state.title = payload
     }
   },
   actions: {

@@ -1,21 +1,47 @@
 <template>
   <div class="home">
+    <topicsList :topics="topics"></topicsList>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import topicsList from '@/components/topicsList.vue'
 export default {
   name: 'Home',
+  data () {
+    return {
+      // 页码
+      page: 1,
+      limit: 30,
+      topics: []
+    }
+  },
+  created () {
+    this.changeTitle('全部')
+  },
   components: {
+    topicsList
   },
   async mounted () {
-    const res = await this.$api.topic.createTopic({
-      accesstoken: 'e3f26acd-36e9-4869-b2fa-11e8bbddcc14',
-      title: '测试发帖',
-      tab: 'dev',
-      content: '## 测试发帖 ### 测试发帖'
-    })
-    console.log(res)
+    this.getTopics()
+  },
+  methods: {
+    ...mapMutations([
+      'changeTitle'
+    ]),
+    // 获取主题列表
+    async getTopics () {
+      const res = await this.$api.topic.getTopics({
+        page: this.page,
+        limit: this.limit
+      })
+      if (res) {
+        this.topics = res.data
+        this.page++
+      }
+      console.log(this.topics)
+    }
   }
 }
 </script>
