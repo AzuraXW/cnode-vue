@@ -5,8 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    leftMenuVisible: false
   },
   mutations: {
+    changeMenuVisible (state) {
+      state.leftMenuVisible = !state.leftMenuVisible
+    }
   },
   actions: {
   },

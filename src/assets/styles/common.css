@@ -1,3 +1,7 @@
+body{
+    background-color: #ede3e7;
+    overflow: hidden;
+}
 button.none{
     outline: none;
     background-color: transparent;
