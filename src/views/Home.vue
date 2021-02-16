@@ -1,18 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-button type="primary">主要按钮</el-button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+  },
+  async mounted () {
+    const res = await this.$api.topic.createTopic({
+      accesstoken: 'e3f26acd-36e9-4869-b2fa-11e8bbddcc14',
+      title: '测试发帖',
+      tab: 'dev',
+      content: '## 测试发帖 ### 测试发帖'
+    })
+    console.log(res)
   }
 }
 </script>
