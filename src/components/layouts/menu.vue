@@ -2,11 +2,11 @@
   <transition name="fade">
     <div class="active-menu" :class="{open: visible}">
       <nav class="nav">
-        <router-link to="/"><span>全部</span></router-link>
-        <router-link to="/good"><span>精华</span></router-link>
-        <router-link to="/share"><span>分享</span></router-link>
-        <router-link to="/ask"><span>问答</span></router-link>
-        <router-link to="/job"><span>招聘</span></router-link>
+        <router-link :to="{name: 'HomeAll'}"><span>全部</span></router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'good' }}"><span>精华</span></router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'share' }}"><span>分享</span></router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'ask' }}"><span>问答</span></router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'job' }}"><span>招聘</span></router-link>
       </nav>
     </div>
   </transition>
@@ -48,6 +48,9 @@ export default {
       span{
         display: inline-block;
         margin: 5px;
+      }
+      &.router-link-exact-active{
+        color: yellow;
       }
     }
   }

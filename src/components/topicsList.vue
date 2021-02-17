@@ -1,5 +1,11 @@
 <template>
-  <div class="topics" v-loading="loading">
+  <div class="topics"
+    v-loading="loading"
+    v-infinite-scroll="loadMore"
+    infinite-scroll-delay="300"
+    :infinite-scroll-distance="80"
+    :infinite-scroll-immediate="false"
+    >
     <el-card shadow="always" class="item" v-for="(topic) in topics" :key="topic.id">
       <el-row>
         <el-col :span="4">
@@ -49,6 +55,11 @@ export default {
         return true
       }
     }
+  },
+  methods: {
+    loadMore: function () {
+      this.$emit('loadMore')
+    }
   }
 }
 </script>
@@ -73,6 +84,7 @@ export default {
       }
       .title{
         margin-top: 0;
+        margin-bottom: 20px;
         font-weight: 300;
         font-size: 26px;
         color: #333;

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <topicsList :topics="topics"></topicsList>
+    <topicsList :topics="topics" @loadMore="getTopics"></topicsList>
   </div>
 </template>
 
@@ -9,6 +9,7 @@ import { mapMutations } from 'vuex'
 import topicsList from '@/components/topicsList.vue'
 export default {
   name: 'Home',
+  props: ['tab'],
   data () {
     return {
       // 页码
@@ -18,10 +19,11 @@ export default {
     }
   },
   created () {
-    this.changeTitle('全部')
-  },
-  components: {
-    topicsList
+    if (this.$route.fullPath === '/') {
+      this.changeTitle('全部')
+    } else {
+      this.matchTtitle(this.tab)
+    }
   },
   async mounted () {
     this.getTopics()
@@ -34,14 +36,46 @@ export default {
     async getTopics () {
       const res = await this.$api.topic.getTopics({
         page: this.page,
-        limit: this.limit
+        limit: this.limit,
+        tab: this.tab
       })
       if (res) {
-        this.topics = res.data
+        this.topics.push(...res.data)
+        console.log(this.topics)
         this.page++
       }
-      console.log(this.topics)
+    },
+    // 根据路由参数切换全局标题
+    matchTtitle (tab) {
+      const map = {
+        '': '全部',
+        ask: '问答',
+        good: '精华',
+        job: '招聘',
+        share: '分享'
+      }
+      this.changeTitle(map[tab])
     }
+  },
+  watch: {
+    tab: function (tab) {
+      // 匹配标题
+      const tabKey = tab === undefined ? '' : tab
+      this.matchTtitle(tabKey)
+      // 路由参数改变时重置请求参数
+      this.page = 1
+      this.topics.length = 0
+      this.getTopics()
+    }
+  },
+  components: {
+    topicsList
   }
 }
 </script>
+
+<style lang="scss">
+  .home{
+
+  }
+</style>

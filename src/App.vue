@@ -49,9 +49,13 @@ export default {
     transform: translateX(251px);
   }
   .topic-wrapper{
-    height: 100vh;
+    height: calc(100vh - 61px);
+    overflow: hidden;
     .el-scrollbar{
       height: 100%;
+    }
+    .el-scrollbar__wrap{
+      overflow: auto;
     }
     .el-scrollbar__thumb{
       background-color: red;

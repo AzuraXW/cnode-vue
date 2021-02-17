@@ -5,7 +5,8 @@ import {
   Row,
   Card,
   Scrollbar,
-  Loading
+  Loading,
+  InfiniteScroll
 } from 'element-ui'
 
 Vue.use(Button)
@@ -14,3 +15,4 @@ Vue.use(Row)
 Vue.use(Card)
 Vue.use(Scrollbar)
 Vue.use(Loading)
+Vue.use(InfiniteScroll)
