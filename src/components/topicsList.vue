@@ -1,10 +1,13 @@
 <template>
   <div class="topics"
     v-loading="loading"
+    element-loading-text="拼命加载中......"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
     v-infinite-scroll="loadMore"
-    infinite-scroll-delay="300"
-    :infinite-scroll-distance="80"
-    :infinite-scroll-immediate="false"
+    :infinite-scroll-delay="300"
+    infinite-scroll-distance="0"
+    :infinite-scroll-disabled="disabled"
+    infinite-scroll-immediate="false"
     >
     <el-card shadow="always" class="item" v-for="(topic) in topics" :key="topic.id">
       <el-row>
@@ -27,6 +30,10 @@
         </el-col>
       </el-row>
     </el-card>
+    <div v-if="loadingMore" class="loadMore">
+      <i class="el-icon-loading"></i>
+      <span>加载中...</span>
+    </div>
   </div>
 </template>
 
@@ -39,6 +46,12 @@ export default {
       default: function () {
         return []
       }
+    },
+    disabled: {}
+  },
+  data () {
+    return {
+      loadingMore: false
     }
   },
   filters: {
@@ -48,16 +61,20 @@ export default {
     }
   },
   computed: {
-    loading: function () {
+    loading () {
       if (this.topics.length > 0) {
         return false
       } else {
         return true
       }
+    },
+    disabledLoadMore () {
+      return this.disabled
     }
   },
   methods: {
     loadMore: function () {
+      this.loadingMore = true
       this.$emit('loadMore')
     }
   }
@@ -67,6 +84,7 @@ export default {
 <style lang="scss">
   .topics{
     min-height: calc(100vh - 61px);
+    // overflow: auto;
     .item{
       margin: 25px;
       .avatar{
@@ -95,6 +113,21 @@ export default {
         }
       }
       .des{
+        color: #999;
+      }
+    }
+    .loadMore{
+      width: 100%;
+      display: flex;
+      margin: 15px 0;
+      justify-content: center;
+      i{
+        font-size: 14px;
+      }
+      span{
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 14px;
         color: #999;
       }
     }

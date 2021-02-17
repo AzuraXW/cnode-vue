@@ -6,7 +6,9 @@ import {
   Card,
   Scrollbar,
   Loading,
-  InfiniteScroll
+  InfiniteScroll,
+  Notification,
+  Backtop
 } from 'element-ui'
 
 Vue.use(Button)
@@ -16,3 +18,5 @@ Vue.use(Card)
 Vue.use(Scrollbar)
 Vue.use(Loading)
 Vue.use(InfiniteScroll)
+Vue.use(Backtop)
+Vue.prototype.$notify = Notification

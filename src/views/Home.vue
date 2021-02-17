@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <topicsList :topics="topics" @loadMore="getTopics"></topicsList>
+    <topicsList
+    :topics="topics"
+    :disabled="disabledLoadMore"
+    @loadMore="getTopics"></topicsList>
   </div>
 </template>
 
@@ -15,7 +18,8 @@ export default {
       // 页码
       page: 1,
       limit: 30,
-      topics: []
+      topics: [],
+      disabledLoadMore: false
     }
   },
   created () {
@@ -39,9 +43,13 @@ export default {
         limit: this.limit,
         tab: this.tab
       })
+      // 禁止加载更多
+      if (!res.data.length && this.page > 0) {
+        this.disabledLoadMore = true
+        return
+      }
       if (res) {
         this.topics.push(...res.data)
-        console.log(this.topics)
         this.page++
       }
     },

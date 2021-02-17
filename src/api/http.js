@@ -1,9 +1,10 @@
 import axios from 'axios'
 import QS from 'qs'
+import { Notification } from 'element-ui'
 
 const instance = axios.create({
   baseURL: 'https://cnodejs.org/api/v1',
-  timeout: 1000,
+  timeout: 2000,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
   }
@@ -18,6 +19,11 @@ instance.interceptors.response.use(
     }
   },
   error => {
+    Notification.error({
+      title: '网络错误',
+      message: '网络请求超时，请刷新页面！',
+      duration: 0
+    })
     return Promise.reject(error)
   }
 )
