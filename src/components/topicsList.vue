@@ -13,7 +13,7 @@
       <el-row>
         <el-col :span="4">
           <div class="avatar">
-            <router-link to="/">
+            <router-link :to="{name: 'User', params: { username: topic.author.loginname }}">
               <img :src="topic.author.avatar_url" alt="">
             </router-link>
             <div class="count">

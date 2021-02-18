@@ -8,7 +8,8 @@ import {
   Loading,
   InfiniteScroll,
   Notification,
-  Backtop
+  Backtop,
+  Avatar
 } from 'element-ui'
 
 Vue.use(Button)
@@ -19,4 +20,5 @@ Vue.use(Scrollbar)
 Vue.use(Loading)
 Vue.use(InfiniteScroll)
 Vue.use(Backtop)
+Vue.use(Avatar)
 Vue.prototype.$notify = Notification

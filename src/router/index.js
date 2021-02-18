@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 import Home from '../views/Home.vue'
+import User from '../views/User.vue'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -17,6 +18,12 @@ const routes = [
     path: '/:tab',
     name: 'Home',
     component: Home,
+    props: true
+  },
+  {
+    path: '/user/:username',
+    name: 'User',
+    component: User,
     props: true
   }
 ]

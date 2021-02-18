@@ -3,7 +3,7 @@
     <el-row type="flex" align="center" style="width: 100%">
       <el-col :span="1" :xs="3" class="center">
         <button class="none menu-btn">
-          <i :class="leftMenuVisible ? 'el-icon-circle-close' : 'el-icon-s-fold'"
+          <i class="iconfont" :class="leftMenuVisible ? 'icon-iconfront-' : 'icon-zhuti'"
           @click.self.stop="changeMenuVisible"></i>
         </button>
       </el-col>
