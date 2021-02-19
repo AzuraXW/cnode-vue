@@ -4,15 +4,9 @@
       <el-col :span="1">
         <el-avatar shape="square" :size="35" :src="topic.author.avatar_url"></el-avatar>
       </el-col>
-      <el-col :span="20"><h2>{{topic.title}}</h2></el-col>
+      <el-col :span="19" :offset="1"><h2>{{topic.title}}</h2></el-col>
       <el-col :span="3"><span class="last-date">{{topic.last_reply_at | datesub}}</span></el-col>
     </el-row>
-    <div class="nodata-topic">
-      <div>
-        <i class="iconfont icon-nodata-topic"></i>
-        <span>无主题</span>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -22,7 +16,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .topic-item{
   &:not(:last-child) {
     margin-bottom: 15px;
@@ -43,20 +37,6 @@ export default {
     width: 100%;
     font-size: 12px;
     color: #999;
-  }
-  .nodata-topic{
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    i{
-      font-size: 26px;
-    }
-    span{
-      display: inline-block;
-      margin-left: 10px;
-      font-size: 18px;
-    }
   }
 }
 </style>

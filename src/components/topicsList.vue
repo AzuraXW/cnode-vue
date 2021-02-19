@@ -11,7 +11,17 @@
     >
     <el-card shadow="always" class="item" v-for="(topic) in topics" :key="topic.id">
       <el-row>
-        <el-col :span="4">
+        <el-col :lg="4" :md="6" :sm="7"
+        v-response="{
+          size: 'xs',
+          resFunc (el, inRange) {
+            if (inRange) {
+              el.style.display = 'none'
+            } else {
+              el.style.display = 'block'
+            }
+          }
+        }">
           <div class="avatar">
             <router-link :to="{name: 'User', params: { username: topic.author.loginname }}">
               <img :src="topic.author.avatar_url" alt="">
@@ -24,7 +34,7 @@
           <div class="create_at gray-14">创建时间：{{topic.create_at.substr(0, 10)}}</div>
           <div class="last_reply_at gray-14">最后编辑时间：{{topic.last_reply_at.substr(0, 10)}}</div>
         </el-col>
-        <el-col :span="19" :offset="1">
+        <el-col :lg="19" :offset="1" :md="17" :sm="16" :xs="{span: 24, offset: 0}">
           <router-link to="/"><h2 class="title">{{topic.title}}</h2></router-link>
           <div class="des">{{topic.content | fileterTag}}</div>
         </el-col>
@@ -81,7 +91,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .topics{
     min-height: calc(100vh - 61px);
     // overflow: auto;

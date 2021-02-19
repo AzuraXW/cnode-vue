@@ -1,7 +1,7 @@
 <template>
   <div class="page-user">
     <el-row>
-      <el-col :span="18">
+      <el-col :lg="18" :md="17" :sm="16">
         <el-card class="box-card">
           <div slot="header" class="card-header">
             <span>最近创建的话题</span>
@@ -10,7 +10,7 @@
               <i class="el-icon-d-arrow-right"></i>
             </router-link>
           </div>
-          <div class="topic-list" v-loading="loading">
+          <div class="recent_topics" v-loading="loading">
             <topicItem
               v-for="topic in userDetail.recent_topics"
               :key="topic.id"
@@ -26,7 +26,7 @@
               <i class="el-icon-d-arrow-right"></i>
             </router-link>
           </div>
-          <div class="topic-list" v-loading="loading">
+          <div class="recent_replies" v-loading="loading">
             <topicItem
               v-for="topic in userDetail.recent_replies"
               :key="topic.id"
@@ -35,7 +35,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="6" style="padding-left:25px">
+      <el-col :lg="6" :md="7" :sm="8" style="padding-left:25px">
         <el-card class="box-card user-box">
           <div slot="header" class="card-header">
             <span>个人信息</span>
@@ -80,6 +80,15 @@ export default {
         this.userDetail = res.data
         this.loading = false
       }
+      if (!res.data.recent_topics.length) {
+        console.log('123')
+        this.$nodata('.recent_topics')
+      }
+
+      if (!res.data.recent_replies.length) {
+        console.log('123')
+        this.$nodata('.recent_replies')
+      }
     }
   },
   components: {
@@ -88,7 +97,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-user{
   padding: 25px;
   .box-card{
