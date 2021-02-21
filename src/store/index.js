@@ -6,7 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     leftMenuVisible: false,
-    title: '全部'
+    title: '全部',
+    loginStatus: false,
+    accesstoken: '',
+    userInfo: {}
   },
   mutations: {
     changeMenuVisible (state) {
@@ -14,6 +17,15 @@ export default new Vuex.Store({
     },
     changeTitle (state, payload) {
       state.title = payload
+    },
+    setLoginStatus (state, payload) {
+      state.loginStatus = payload
+    },
+    setUserInfo (state, payload) {
+      state.userInfo = payload
+    },
+    setAccesstoken (state, payload) {
+      state.accesstoken = payload
     }
   },
   actions: {

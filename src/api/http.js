@@ -19,11 +19,13 @@ instance.interceptors.response.use(
     }
   },
   error => {
-    Notification.error({
-      title: '网络错误',
-      message: '网络请求超时，请刷新页面！',
-      duration: 0
-    })
+    if (error.response.status === 403) {
+      Notification.error({
+        title: '网络错误',
+        message: '网络请求超时，请刷新页面！',
+        duration: 0
+      })
+    }
     return Promise.reject(error)
   }
 )

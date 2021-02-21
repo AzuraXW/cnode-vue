@@ -1,4 +1,4 @@
-import { get } from '../http'
+import { get, post } from '../http'
 
 /**
  * 获取用户详情
@@ -6,4 +6,15 @@ import { get } from '../http'
  */
 export function getUserDetail (username) {
   return get(`/user/${username}`)
+}
+
+/**
+ *
+ *
+ * 登录
+ * @param {*} accesstoken 密钥
+ * @return {*}
+ */
+export function login (accesstoken) {
+  return post('/accesstoken', { accesstoken })
 }

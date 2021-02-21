@@ -9,7 +9,15 @@ import {
   InfiniteScroll,
   Notification,
   Backtop,
-  Avatar
+  Avatar,
+  Link,
+  Form,
+  FormItem,
+  Input,
+  Checkbox,
+  Dropdown,
+  Popover,
+  Message
 } from 'element-ui'
 
 Vue.use(Button)
@@ -21,4 +29,12 @@ Vue.use(Loading)
 Vue.use(InfiniteScroll)
 Vue.use(Backtop)
 Vue.use(Avatar)
+Vue.use(Link)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Checkbox)
+Vue.use(Dropdown)
+Vue.use(Popover)
 Vue.prototype.$notify = Notification
+Vue.prototype.$msg = Message

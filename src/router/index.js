@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store'
 import Home from '../views/Home.vue'
 import User from '../views/User.vue'
+import Login from '../views/Login.vue'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -15,7 +16,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/:tab',
+    path: '/home/:tab',
     name: 'Home',
     component: Home,
     props: true
@@ -25,6 +26,14 @@ const routes = [
     name: 'User',
     component: User,
     props: true
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    props: (route) => ({
+      from: route.query.from
+    })
   }
 ]
 
