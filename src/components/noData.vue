@@ -16,7 +16,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  color: rgb(147, 66, 223);
   i{
     font-size: 36px;
   }

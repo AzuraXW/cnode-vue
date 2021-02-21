@@ -35,7 +35,7 @@
           <div class="last_reply_at gray-14">最后编辑时间：{{topic.last_reply_at.substr(0, 10)}}</div>
         </el-col>
         <el-col :lg="19" :offset="1" :md="17" :sm="16" :xs="{span: 24, offset: 0}">
-          <router-link to="/"><h2 class="title">{{topic.title}}</h2></router-link>
+          <router-link to="/"><h2 class="title ellipsis" :title="topic.title">{{topic.title}}</h2></router-link>
           <div class="des">{{topic.content | fileterTag}}</div>
         </el-col>
       </el-row>

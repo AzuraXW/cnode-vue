@@ -2,11 +2,26 @@
   <transition name="fade">
     <div class="active-menu" :class="{open: visible}">
       <nav class="nav">
-        <router-link :to="{name: 'HomeAll'}"><span>全部</span></router-link>
-        <router-link :to="{name: 'Home', params: { tab: 'good' }}"><span>精华</span></router-link>
-        <router-link :to="{name: 'Home', params: { tab: 'share' }}"><span>分享</span></router-link>
-        <router-link :to="{name: 'Home', params: { tab: 'ask' }}"><span>问答</span></router-link>
-        <router-link :to="{name: 'Home', params: { tab: 'job' }}"><span>招聘</span></router-link>
+        <router-link :to="{name: 'HomeAll'}">
+          <i class="iconfont icon-icon_huabanfuben" style="font-size: 20px"></i>
+          <span>全部</span>
+        </router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'good' }}">
+          <i class="iconfont icon-weibiaoti-_huaban" style="font-size: 19px"></i>
+          <span>精华</span>
+        </router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'share' }}">
+          <i class="iconfont icon-fenxiang"></i>
+          <span>分享</span>
+        </router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'ask' }}">
+          <i class="iconfont icon-wenda"></i>
+          <span>问答</span>
+        </router-link>
+        <router-link :to="{name: 'Home', params: { tab: 'job' }}">
+          <i class="iconfont icon-zhaopinhui"></i>
+          <span>招聘</span>
+        </router-link>
       </nav>
     </div>
   </transition>
@@ -45,12 +60,23 @@ export default {
       justify-content: center;
       align-items: center;
       text-decoration: none;
+      color: rgb(49, 49, 49);
+      margin: 10px 0;
+      &:hover{
+        color: rgb(147, 66, 223);
+      }
+      i{
+        display: inline-block;
+        width: 25px;
+        text-align: center;
+      }
       span{
         display: inline-block;
         margin: 5px;
+        letter-spacing: 20px;
       }
       &.router-link-exact-active{
-        color: yellow;
+        color: rgb(147, 66, 223);
       }
     }
   }

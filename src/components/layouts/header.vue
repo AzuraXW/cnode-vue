@@ -9,7 +9,7 @@
       </el-col>
       <el-col :span="20" :xs="16" class="center" style="justify-content:center;">{{ title }}</el-col>
       <el-col :span="2" :xs="4" class="center" style="justify-content:flex-end;">
-        <el-link @click="$router.push({name: 'Login', query: {from: $route.fullPath}})" v-if="!userInfo.loginname">
+        <el-link @click="jumplogin" v-if="!userInfo.loginname">
           <i class="el-icon-user el-icon--left"></i>
           登录
         </el-link>
@@ -26,7 +26,16 @@ export default {
   methods: {
     ...mapMutations([
       'changeMenuVisible'
-    ])
+    ]),
+    jumplogin () {
+      if (this.$route.fullPath === '/login') {
+        return
+      }
+      this.$router.push({
+        name: 'Login',
+        query: { from: this.$route.fullPath }
+      })
+    }
   },
   computed: mapState(['leftMenuVisible', 'title', 'userInfo']),
   components: {

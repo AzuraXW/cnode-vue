@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+// import { mapMutations } from 'vuex'
 import topicsList from '@/components/topicsList.vue'
 export default {
   name: 'Home',
@@ -33,9 +33,6 @@ export default {
     this.getTopics()
   },
   methods: {
-    ...mapMutations([
-      'changeTitle'
-    ]),
     // 获取主题列表
     async getTopics () {
       const res = await this.$api.topic.getTopics({

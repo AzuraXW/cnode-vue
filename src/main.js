@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { mapMutations } from 'vuex'
 import localPlugin from './plugins'
 import './ElementUI'
 import '@/assets/styles/common.css'
@@ -20,6 +21,11 @@ Vue.prototype.$nodata = (selector) => {
 Vue.use(localPlugin)
 
 Vue.filter('datesub', dateSub)
+Vue.mixin({
+  methods: {
+    ...mapMutations(['changeTitle'])
+  }
+})
 new Vue({
   router,
   store,

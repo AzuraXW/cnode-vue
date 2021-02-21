@@ -35,7 +35,15 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :lg="6" :md="7" :sm="8" style="padding-left:25px">
+      <el-col :lg="6" :md="7" :sm="8" style="padding-left:25px" v-response="{size: 'xs', resFunc(el, inRange) {
+        if (inRange) {
+          el.style.paddingLeft = '0'
+          el.style.marginTop = '25px'
+        } else {
+          el.style.paddingLeft = '25px'
+          el.style.marginTop = '0'
+        }
+      }}">
         <el-card class="box-card user-box">
           <div slot="header" class="card-header">
             <span>个人信息</span>
@@ -58,7 +66,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+// import { mapMutations } from 'vuex'
 import topicItem from '@/components/topicItem'
 export default {
   props: ['username'],
@@ -73,15 +81,24 @@ export default {
     this.getUserDetail()
   },
   methods: {
-    ...mapMutations(['changeTitle']),
     async getUserDetail () {
-      const res = await this.$api.user.getUserDetail(this.username)
-      if (res.success && res.data) {
+      let res = ''
+      try {
+        res = await this.$api.user.getUserDetail(this.username)
+      } catch (e) {
+        // 用户不存在
+        this.$msg({
+          message: e.response.data.error_msg,
+          type: 'error'
+        })
+      }
+      if (res.success) {
         this.userDetail = res.data
         this.loading = false
       }
+
+      // 判断是否有参与或者回复的主题，没有就显示无主题组件
       if (!res.data.recent_topics.length) {
-        console.log('123')
         this.$nodata('.recent_topics')
       }
 
@@ -93,6 +110,12 @@ export default {
   },
   components: {
     topicItem
+  },
+  watch: {
+    username () {
+      this.getUserDetail()
+      this.changeTitle(`@${this.username}的个人主页`)
+    }
   }
 }
 </script>

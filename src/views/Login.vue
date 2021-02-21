@@ -19,6 +19,9 @@ import { mapMutations, mapState } from 'vuex'
 import login from '@/utils/login'
 export default {
   props: ['from'],
+  created () {
+    this.changeTitle('用户登录')
+  },
   data () {
     return {
       loginModel: {

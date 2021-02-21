@@ -12,3 +12,9 @@ button.none{
     color: #999;
     margin-bottom: 5px;
 }
+.ellipsis{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
