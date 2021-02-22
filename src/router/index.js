@@ -4,6 +4,7 @@ import store from '../store'
 import Home from '../views/Home.vue'
 import User from '../views/User.vue'
 import Login from '../views/Login.vue'
+import CreateTopic from '../views/CreateTopic.vue'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -34,6 +35,11 @@ const routes = [
     props: (route) => ({
       from: route.query.from
     })
+  },
+  {
+    path: '/topic/create',
+    name: 'CreateTopic',
+    component: CreateTopic
   }
 ]
 
