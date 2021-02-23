@@ -18,3 +18,31 @@ export function getUserDetail (username) {
 export function login (accesstoken) {
   return post('/accesstoken', { accesstoken })
 }
+
+/**
+ * 收藏
+ *
+ * @export
+ * @param {*} { accesstoken, topicId }
+ * @return {*}
+ */
+export function collect ({ accesstoken, topicId }) {
+  return post('/topic_collect/collect', {
+    accesstoken,
+    topic_id: topicId
+  })
+}
+
+/**
+ * 取消收藏
+ *
+ * @export
+ * @param {*} { accesstoken, topicId }
+ * @return {*}
+ */
+export function deCollect ({ accesstoken, topicId }) {
+  return post('/topic_collect/de_collect', {
+    accesstoken,
+    topic_id: topicId
+  })
+}

@@ -34,7 +34,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :lg="6" :md="7" :sm="8" class='right mtl-xs-25-0'>
+      <el-col :lg="6" :md="7" :sm="8" class='right'>
         <el-card>
           <div slot="header">
             markdown语法指南

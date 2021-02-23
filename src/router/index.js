@@ -5,6 +5,7 @@ import Home from '../views/Home.vue'
 import User from '../views/User.vue'
 import Login from '../views/Login.vue'
 import CreateTopic from '../views/CreateTopic.vue'
+import Topic from '../views/Topic.vue'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -40,6 +41,12 @@ const routes = [
     path: '/topic/create',
     name: 'CreateTopic',
     component: CreateTopic
+  },
+  {
+    path: '/topic/:id',
+    name: 'Topic',
+    component: Topic,
+    props: true
   }
 ]
 

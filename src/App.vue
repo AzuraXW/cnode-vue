@@ -3,7 +3,7 @@
     <menuVue></menuVue>
     <div :class="{collapse: leftMenuVisible}" class="content" @click="collapseMenu">
       <headerVue></headerVue>
-        <div class="topic-wrapper">
+        <div class="wrapper">
           <el-scrollbar>
             <router-view/>
           </el-scrollbar>
@@ -63,7 +63,7 @@ export default {
   &.collapse{
     transform: translateX(251px);
   }
-  .topic-wrapper{
+  .wrapper{
     height: calc(100vh - 61px);
     overflow: hidden;
     .el-scrollbar{
