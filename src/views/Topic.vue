@@ -30,7 +30,25 @@
           <div slot="header">
              回复
           </div>
-          <replyList :reply_list="topicDetail.replies"></replyList>
+          <replyList
+            :reply_list="topicDetail.replies"
+            @replyComment="openReplyDialog"
+          ></replyList>
+        </el-card>
+        <el-card class="mt-25">
+          <div slot="header">
+             新建评论
+          </div>
+          <div class="edit-area">
+            <mavon-editor
+              v-model="replyContent"
+              :toolbars="toolbars"
+              defaultOpen="edit"
+              placeholder="请输入回复..."
+              :autofocus="false"
+            />
+            <el-button type="primary" class="mt-25" @click.native="onReplyContent">回复</el-button>
+          </div>
         </el-card>
       </el-col>
       <el-col :lg="6" :md="7" :sm="8" class="right">
@@ -41,12 +59,28 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-dialog
+      :title="dialog.title"
+      :visible.sync="dialog.visible"
+    >
+      <mavon-editor
+        v-model="replyComment.content"
+        :toolbars="toolbars"
+        defaultOpen="edit"
+        placeholder="请输入回复..."
+      />
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="onRreplyComment">回 复</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import replyList from '@/components/replyList'
+import toolbars from '@/utils/markdown-edit-toolbar-config'
 export default {
   props: ['id'],
   data () {
@@ -57,7 +91,18 @@ export default {
         good: '精华',
         job: '招聘'
       },
-      collect: false
+      collect: false,
+      toolbars,
+      replyContent: '',
+      replyComment: {
+        replyId: '',
+        replyName: '',
+        content: ''
+      },
+      dialog: {
+        title: '',
+        visible: false
+      }
     }
   },
   created () {
@@ -68,6 +113,7 @@ export default {
     }, 500)
   },
   methods: {
+    // 获取主题详情
     async getTopicDetail () {
       const res = await this.$api.topic.getTopicsDateil({
         topicId: this.id,
@@ -77,6 +123,7 @@ export default {
       this.collect = res.data.is_collect
       console.log(res)
     },
+    // 改变收藏状态
     async changeCollect () {
       let res
       if (this.collect) {
@@ -92,6 +139,79 @@ export default {
       }
       if (res.success) {
         this.collect = !this.collect
+      }
+    },
+    // 通用回复函数
+    reply (options) {
+      return new Promise((resolve, reject) => {
+        this.$api.topic.createTopicReply({
+          accesstoken: options.accesstoken,
+          content: options.content,
+          topicId: options.topicId,
+          replyId: options.replyId
+        }).then(res => {
+          if (res.success) {
+            this.$msg({
+              type: 'success',
+              message: '回复成功'
+            })
+            this.replyContent = ''
+            // 重新拉取数据
+            this.getTopicDetail().then(res => {
+              resolve(true)
+            })
+            console.log(res)
+          }
+        })
+      })
+    },
+    // 回复帖子
+    async onReplyContent () {
+      if (!this.replyContent) {
+        this.$msg({
+          type: 'warning',
+          message: '请输入回复内容'
+        })
+        return
+      }
+      // 调用回复函数
+      await this.reply({
+        accesstoken: this.accesstoken,
+        content: this.replyContent,
+        topicId: this.id
+      })
+    },
+
+    async openReplyDialog (options) {
+      const { replyId, replyName } = options
+      this.replyComment.replyId = replyId
+      this.replyComment.replyName = replyName
+      this.replyComment.content = '@' + replyName + ' '
+      this.dialog.title = '回复' + replyName
+      this.dialog.visible = true
+      console.log('回复的id是', replyId, replyName)
+    },
+
+    async onRreplyComment () {
+      if (
+        this.replyComment.content === '@' + this.replyComment.replyName + ' ' ||
+        this.replyComment.content === ''
+      ) {
+        this.$msg({
+          type: 'warning',
+          message: '回复内容不能为空'
+        })
+        return
+      }
+      const isReply = await this.reply({
+        accesstoken: this.accesstoken,
+        content: this.replyComment.content,
+        topicId: this.id,
+        replyId: this.replyComment.replyId
+      })
+      console.log(isReply)
+      if (isReply) {
+        this.dialog.visible = false
       }
     }
   },

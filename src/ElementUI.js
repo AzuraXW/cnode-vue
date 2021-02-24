@@ -19,7 +19,8 @@ import {
   Popover,
   Message,
   Select,
-  Option
+  Option,
+  Dialog
 } from 'element-ui'
 
 Vue.use(Button)
@@ -40,5 +41,6 @@ Vue.use(Dropdown)
 Vue.use(Popover)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Dialog)
 Vue.prototype.$notify = Notification
 Vue.prototype.$msg = Message

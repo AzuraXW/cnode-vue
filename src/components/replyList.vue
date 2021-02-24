@@ -1,5 +1,5 @@
 <template>
-  <ul class="reply-list">
+  <ul class="reply-list" @click="onProxyClick">
     <li class="reply-item"
     v-for="(reply, index) in reply_list"
     :key="reply.id"
@@ -19,7 +19,12 @@
         </div>
         <div class="content_reply" v-html="reply.content"></div>
       </div>
-      <div class="right"></div>
+      <div class="right">
+        <span><i class="iconfont icon-dianzan"></i></span>
+        <span>
+          <i class="el-icon-bottom-left" data-reply="comment" :data-replyname="reply.author.loginname"></i>
+        </span>
+      </div>
     </li>
   </ul>
 </template>
@@ -30,6 +35,21 @@ export default {
   props: ['reply_list'],
   components: {
     Avatar
+  },
+  methods: {
+    onProxyClick (e) {
+      if (e.target.dataset.reply === 'comment') {
+        let parent = e.target.parentNode
+        while (parent.tagName !== 'LI') {
+          parent = parent.parentNode
+        }
+        // 点击了回复按钮
+        this.$emit('replyComment', {
+          replyId: parent.getAttribute('id'),
+          replyName: e.target.dataset.replyname
+        })
+      }
+    }
   }
 }
 </script>

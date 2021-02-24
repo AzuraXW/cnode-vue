@@ -4,7 +4,11 @@
       <el-col :span="1">
         <el-avatar shape="square" :size="35" :src="topic.author.avatar_url"></el-avatar>
       </el-col>
-      <el-col :span="19" :offset="1"><h2 class="ellipsis">{{topic.title}}</h2></el-col>
+      <el-col :span="19" :offset="1">
+        <router-link :to="{ name: 'Topic', params: { id: topic.id } }">
+          <h2 class="ellipsis">{{topic.title}}</h2>
+        </router-link>
+      </el-col>
       <el-col :span="3"><span class="last-date">{{topic.last_reply_at | datesub}}</span></el-col>
     </el-row>
   </div>

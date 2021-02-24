@@ -23,3 +23,12 @@ export function getTopicsDateil (options) {
 export function createTopic (options) {
   return post('/topics', options)
 }
+
+export function createTopicReply (options) {
+  const { accesstoken, content, replyId, topicId } = options
+  return post(`/topic/${topicId}/replies`, {
+    accesstoken,
+    content,
+    reply_id: replyId
+  })
+}
