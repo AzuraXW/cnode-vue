@@ -10,6 +10,9 @@ export function dateSub (target) {
   const nowTime = new Date().getTime()
   const leave = nowTime - targetTime
 
+  if (Math.floor(leave / 1000) < 60) {
+    return Math.floor(leave / 1000) + '秒前'
+  }
   if (Math.floor(leave / scale.minute) < 60) {
     return Math.floor(leave / scale.minute) + '分钟前'
   }

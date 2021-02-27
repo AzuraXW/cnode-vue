@@ -1,53 +1,37 @@
 <template>
   <div class="create-topic">
     <el-row>
-      <el-col :lg="18" :md="17" :sm="16">
-        <el-card>
-          <div slot="header">
-            发布主题
-          </div>
-          <div class="edit-area">
-            <el-form
-              :model="createForm"
-              label-width="80px"
-              :rules="rules"
-              ref="form"
-            >
-              <el-form-item label="选择板块" prop="tab">
-                <el-select v-model="createForm.tab" placeholder="请选择">
-                  <el-option
-                    v-for="item in tabOptions"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="主题标题" prop="title">
-                <el-input v-model="createForm.title" placeholder="请输入标题"></el-input>
-              </el-form-item>
-              <el-form-item prop="content">
-                <mavon-editor v-model="createForm.content" class="editor"/>
-              </el-form-item>
-              <el-button type="primary" @click="onSubmit" class="publish-btn">发布</el-button>
-            </el-form>
-          </div>
-        </el-card>
-      </el-col>
-      <el-col :lg="6" :md="7" :sm="8" class='right'>
-        <el-card>
-          <div slot="header">
-            markdown语法指南
-          </div>
-          <div></div>
-        </el-card>
-        <el-card class="mt-25">
-          <div slot="header">
-            话题发布指南
-          </div>
-          <div></div>
-        </el-card>
-      </el-col>
+      <el-card>
+        <div slot="header">
+          发布主题
+        </div>
+        <div class="edit-area">
+          <el-form
+            :model="createForm"
+            :rules="rules"
+            ref="form"
+            label-position="top"
+          >
+            <el-form-item label="选择板块" prop="tab">
+              <el-select v-model="createForm.tab" placeholder="请选择">
+                <el-option
+                  v-for="item in tabOptions"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="主题标题" prop="title" label-width="180">
+              <el-input v-model="createForm.title" placeholder="请输入标题"></el-input>
+            </el-form-item>
+            <el-form-item prop="content">
+              <mavon-editor v-model="createForm.content" class="editor"/>
+            </el-form-item>
+            <el-button type="primary" @click="onSubmit" class="publish-btn">发布</el-button>
+          </el-form>
+        </div>
+      </el-card>
     </el-row>
   </div>
 </template>
@@ -114,10 +98,7 @@ export default {
         })
       }
       if (res.success) {
-        this.$msg({
-          type: 'success',
-          message: res
-        })
+        this.$router.push({ name: 'Topic', params: { id: res.topic_id } })
       }
     }
   },

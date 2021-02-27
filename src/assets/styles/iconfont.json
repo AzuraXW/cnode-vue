@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "579286",
+      "name": "点赞",
+      "font_class": "dianzan",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
       "icon_id": "1263492",
       "name": "分享",
       "font_class": "16",
@@ -39,6 +46,13 @@
       "font_class": "zhaopinhui",
       "unicode": "e607",
       "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "5344808",
+      "name": "点赞",
+      "font_class": "zan",
+      "unicode": "e683",
+      "unicode_decimal": 59011
     },
     {
       "icon_id": "5520039",
@@ -111,18 +125,25 @@
       "unicode_decimal": 58997
     },
     {
+      "icon_id": "17118686",
+      "name": "回复",
+      "font_class": "huifu",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
       "icon_id": "17817834",
       "name": "问答",
       "font_class": "wenda",
-      "unicode": "e60c",
-      "unicode_decimal": 58892
+      "unicode": "e60d",
+      "unicode_decimal": 58893
     },
     {
       "icon_id": "17817840",
       "name": "点赞",
-      "font_class": "dianzan",
-      "unicode": "e60d",
-      "unicode_decimal": 58893
+      "font_class": "dianzan1",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
     },
     {
       "icon_id": "19254962",

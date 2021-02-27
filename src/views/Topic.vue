@@ -32,6 +32,7 @@
           </div>
           <replyList
             :reply_list="topicDetail.replies"
+            :loginname="topicDetail.author.loginname"
             @replyComment="openReplyDialog"
           ></replyList>
         </el-card>
@@ -81,6 +82,7 @@
 import { mapState } from 'vuex'
 import replyList from '@/components/replyList'
 import toolbars from '@/utils/markdown-edit-toolbar-config'
+import debounce from '@/utils/debounce.js'
 export default {
   props: ['id'],
   data () {
@@ -102,7 +104,8 @@ export default {
       dialog: {
         title: '',
         visible: false
-      }
+      },
+      collectDebounce: debounce(this.Collect, 1000, true)
     }
   },
   created () {
@@ -125,6 +128,14 @@ export default {
     },
     // 改变收藏状态
     async changeCollect () {
+      this.collectDebounce(function () {
+        this.$msg({
+          type: 'warning',
+          message: '您操作的太频繁了'
+        })
+      }.bind(this))
+    },
+    async Collect () {
       let res
       if (this.collect) {
         res = await this.$api.user.deCollect({

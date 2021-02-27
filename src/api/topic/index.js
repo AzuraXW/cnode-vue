@@ -24,11 +24,25 @@ export function createTopic (options) {
   return post('/topics', options)
 }
 
+/**
+ * 创建回复
+ *
+ * @export
+ * @param {*} options
+ * @return {*}
+ */
 export function createTopicReply (options) {
   const { accesstoken, content, replyId, topicId } = options
   return post(`/topic/${topicId}/replies`, {
     accesstoken,
     content,
     reply_id: replyId
+  })
+}
+
+export function ups (options) {
+  const { accesstoken, replyId } = options
+  return post(`/reply/${replyId}/ups`, {
+    accesstoken
   })
 }

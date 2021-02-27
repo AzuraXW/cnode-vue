@@ -21,3 +21,13 @@ button.none{
 .mt-25{
     margin-top: 25px;
 }
+
+.badge{
+    display: inline-block;
+    padding: 2px;
+    color: #fff;
+    margin-left: 5px;
+}
+.bg-success{
+    background-color: #6ba44e;
+}
