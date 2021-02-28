@@ -1,45 +1,81 @@
 <template>
-  <div class="topic-item">
-    <el-row type="flex" align="middle">
-      <el-col :span="1">
-        <el-avatar shape="square" :size="35" :src="topic.author.avatar_url"></el-avatar>
-      </el-col>
-      <el-col :span="19" :offset="1">
-        <router-link :to="{ name: 'Topic', params: { id: topic.id } }">
-          <h2 class="ellipsis">{{topic.title}}</h2>
-        </router-link>
-      </el-col>
-      <el-col :span="3"><span class="last-date">{{topic.last_reply_at | datesub}}</span></el-col>
-    </el-row>
+  <div class="item-wrapper">
+    <el-card shadow="always" class="item">
+      <el-row>
+        <el-col :lg="4" :md="6" :sm="7"
+        v-response="{
+          size: 'xs',
+          resFunc (el, inRange) {
+            if (inRange) {
+              el.style.display = 'none'
+            } else {
+              el.style.display = 'block'
+            }
+          }
+        }">
+          <div class="avatar">
+            <router-link :to="{name: 'User', params: { username: topic.author.loginname }}">
+              <img :src="topic.author.avatar_url" alt="">
+            </router-link>
+            <div class="count">
+              <div class="gray-14">评论数：{{topic.reply_count}}</div>
+              <div class="gray-14">阅读数：{{topic.visit_count}}</div>
+            </div>
+          </div>
+          <div class="create_at gray-14">创建时间：{{topic.create_at.substr(0, 10)}}</div>
+          <div class="last_reply_at gray-14">最后编辑时间：{{topic.last_reply_at.substr(0, 10)}}</div>
+        </el-col>
+        <el-col :lg="19" :offset="1" :md="17" :sm="16" :xs="{span: 24, offset: 0}">
+          <router-link :to="{name: 'Topic', params: {id: topic.id}}"><h2 class="title ellipsis" :title="topic.title">{{topic.title}}</h2></router-link>
+          <div class="des">{{topic.content | fileterTag}}</div>
+        </el-col>
+      </el-row>
+    </el-card>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['topic']
+  props: ['topic'],
+  filters: {
+    fileterTag: function (value) {
+      const reg = /<\/?.+?\/?>/g
+      if (value.length < 250) return value.replace(reg, '')
+      return value.replace(reg, '').substr(0, 250) + '...'
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.topic-item{
-  &:not(:last-child) {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #dcdfe6;
-    padding-bottom: 15px;
+.item{
+  margin: 25px;
+  .avatar{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    img{
+      width: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
   }
-  h2{
-    margin: 0;
+  a{
+    text-decoration: none;
+  }
+  .title{
+    margin-top: 0;
+    margin-bottom: 20px;
     font-weight: 300;
-    font-size: 20px;
-    color: blueviolet;
-    margin-left: 5px;
-    cursor: pointer;
+    font-size: 26px;
+    color: #333;
+    text-decoration: none;
+    &:hover{
+      text-decoration: underline;
+      text-decoration-style: dashed;
+    }
   }
-  .last-date{
-    text-align: right;
-    display: inline-block;
-    width: 100%;
-    font-size: 12px;
+  .des{
     color: #999;
   }
 }

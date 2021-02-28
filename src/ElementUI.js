@@ -21,7 +21,8 @@ import {
   Select,
   Option,
   Dialog,
-  Tag
+  Tag,
+  Pagination
 } from 'element-ui'
 
 Vue.use(Button)
@@ -44,5 +45,6 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Dialog)
 Vue.use(Tag)
+Vue.use(Pagination)
 Vue.prototype.$notify = Notification
 Vue.prototype.$msg = Message

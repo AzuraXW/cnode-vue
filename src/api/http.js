@@ -1,6 +1,6 @@
 import axios from 'axios'
 import QS from 'qs'
-import { Notification } from 'element-ui'
+import { Message } from 'element-ui'
 
 const instance = axios.create({
   baseURL: 'https://cnodejs.org/api/v1',
@@ -20,10 +20,14 @@ instance.interceptors.response.use(
   },
   error => {
     if (error.response.status === 403) {
-      Notification.error({
-        title: '网络错误',
-        message: '网络请求超时，请刷新页面！',
-        duration: 0
+      Message({
+        type: 'error',
+        message: '网络请求超时，请刷新页面！'
+      })
+    } else if (error.response.status === 401) {
+      Message({
+        type: 'error',
+        message: error.response.data.error_msg
       })
     }
     return Promise.reject(error)

@@ -2,38 +2,8 @@
   <div class="page-user">
     <el-row>
       <el-col :lg="18" :md="17" :sm="16">
-        <el-card class="box-card">
-          <div slot="header" class="card-header">
-            <span>最近创建的话题</span>
-            <router-link to="/" class="more">
-              <span>查看更多</span>
-              <i class="el-icon-d-arrow-right"></i>
-            </router-link>
-          </div>
-          <div class="recent_topics" v-loading="loading">
-            <topicItem
-              v-for="topic in userDetail.recent_topics"
-              :key="topic.id"
-              :topic="topic"
-            ></topicItem>
-          </div>
-        </el-card>
-        <el-card class="box-card">
-          <div slot="header" class="card-header">
-            <span>最近参与的话题</span>
-            <router-link to="/" class="more">
-              <span>查看更多</span>
-              <i class="el-icon-d-arrow-right"></i>
-            </router-link>
-          </div>
-          <div class="recent_replies" v-loading="loading">
-            <topicItem
-              v-for="topic in userDetail.recent_replies"
-              :key="topic.id"
-              :topic="topic"
-            ></topicItem>
-          </div>
-        </el-card>
+        <router-view>
+        </router-view>
       </el-col>
       <el-col :lg="6" :md="7" :sm="8" style="padding-left:25px" v-response="{size: 'xs', resFunc(el, inRange) {
         if (inRange) {
@@ -67,7 +37,6 @@
 
 <script>
 // import { mapMutations } from 'vuex'
-import topicItem from '@/components/topicItem'
 export default {
   props: ['username'],
   data () {
@@ -108,9 +77,6 @@ export default {
       }
     }
   },
-  components: {
-    topicItem
-  },
   watch: {
     username () {
       this.getUserDetail()
@@ -123,30 +89,6 @@ export default {
 <style lang="scss" scoped>
 .page-user{
   padding: 25px;
-  .box-card{
-    &:not(:last-child){
-      margin-bottom: 25px;
-    }
-    .card-header{
-      display: flex;
-      justify-content: space-between;
-    }
-    .more{
-      color: #999;
-      font-size: 14px;
-      text-decoration: none;
-      span{
-        display: inline-block;
-        margin-right: 2px;
-      }
-    }
-  }
-
-  .topic-list{
-    &:empty{
-      min-height: 300px;
-    }
-  }
   .user-box{
     position: sticky;
     top: 70px;

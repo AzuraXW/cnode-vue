@@ -6,4 +6,5 @@ export default function (Vue, options) {
   Vue.filter('datesub', dateSub)
   Vue.directive('response', response)
   Vue.prototype.$api = api
+  Vue.prototype.$bus = new Vue()
 }

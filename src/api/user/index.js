@@ -46,3 +46,7 @@ export function deCollect ({ accesstoken, topicId }) {
     topic_id: topicId
   })
 }
+
+export function getCollects (username) {
+  return get(`/topic_collect/${username}`)
+}

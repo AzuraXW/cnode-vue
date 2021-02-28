@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import store from '../store'
 import Home from '../views/Home.vue'
 import User from '../views/User.vue'
+import UserLately from '../views/UserLately.vue'
+import UserCollect from '../views/UserCollect.vue'
 import Login from '../views/Login.vue'
 import CreateTopic from '../views/CreateTopic.vue'
 import Topic from '../views/Topic.vue'
@@ -27,7 +29,20 @@ const routes = [
     path: '/user/:username',
     name: 'User',
     component: User,
-    props: true
+    props: true,
+    children: [
+      {
+        path: '',
+        name: 'UserLately',
+        component: UserLately
+      },
+      {
+        path: 'collect',
+        name: 'UserCollect',
+        component: UserCollect,
+        props: true
+      }
+    ]
   },
   {
     path: '/login',
