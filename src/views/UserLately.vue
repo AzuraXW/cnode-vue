@@ -5,7 +5,9 @@
           <span>最近创建的话题</span>
         </div>
         <div class="recent_topics">
+          <noData v-if="userDetail.recent_topics <= 0"></noData>
           <topicUserItem
+            v-else
             v-for="topic in userDetail.recent_topics"
             :key="topic.id"
             :topic="topic"
@@ -17,7 +19,9 @@
           <span>最近参与的话题</span>
         </div>
         <div class="recent_replies">
+          <noData v-if="userDetail.recent_replies <= 0"></noData>
           <topicUserItem
+            v-else
             v-for="topic in userDetail.recent_replies"
             :key="topic.id"
             :topic="topic"

@@ -9,17 +9,11 @@ import '@/assets/styles/common.css'
 import '@/assets/styles/article.css'
 import '@/assets/styles/iconfont.css'
 import 'normalize.css'
-import noData from '@/components/noData'
 import autoLogin from '@/utils/login'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
-const NoData = Vue.extend(noData)
 Vue.config.productionTip = false
-
-Vue.prototype.$nodata = (selector) => {
-  new NoData().$mount(selector)
-}
 
 Vue.use(localPlugin)
 Vue.use(mavonEditor)

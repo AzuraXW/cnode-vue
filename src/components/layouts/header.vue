@@ -46,6 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .header{
+  user-select: none;
   height: 60px;
   padding: 0 25px;
   display: flex;

@@ -1,12 +1,22 @@
 <template>
   <div class="nodata">
-    <i class="iconfont icon-nodata-topic"></i>
-    <span>无主题</span>
+    <i :class="[icon]"></i>
+    <span>{{text}}</span>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    icon: {
+      type: String,
+      default: 'iconfont icon-wushuju'
+    },
+    text: {
+      type: String,
+      default: '无数据'
+    }
+  }
 }
 </script>
 
@@ -16,7 +26,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(147, 66, 223);
+  color: #87848a;
   i{
     font-size: 36px;
   }

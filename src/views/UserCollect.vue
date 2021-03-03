@@ -4,17 +4,20 @@
       <div slot="header">
         用户收藏的主题
       </div>
-      <topicUserItem
-        v-for="collect in collectList"
-        :key="collect.id"
-        :topic="collect"
-      >
-      </topicUserItem>
-      <el-pagination
-      :page-count="collects.length - 1"
-      page-size="5"
-      @current-change="pageChange"
-      ></el-pagination>
+      <noData v-if="collects.length===0" text="无收藏主题"></noData>
+      <div class="collect-wrapper" v-else>
+        <topicUserItem
+          v-for="collect in collectList"
+          :key="collect.id"
+          :topic="collect"
+        >
+        </topicUserItem>
+        <el-pagination
+          :page-count="collects.length - 1"
+          :page-size="5"
+          @current-change="pageChange"
+        ></el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
@@ -27,7 +30,7 @@ export default {
     return {
       collects: [],
       limit: 5,
-      curPage: 1
+      curPage: 0
     }
   },
   mounted () {
@@ -36,10 +39,9 @@ export default {
   methods: {
     async getCollectList () {
       const res = await this.$api.user.getCollects(this.username)
-      if (res.success) {
+      if (res.success && res.data) {
         this.collects = this.toMultiData(res.data, 5)
       }
-      console.log(this.collects)
     },
     toMultiData (arr, limit) {
       const count = Math.ceil(arr.length / limit)
@@ -55,7 +57,7 @@ export default {
       return result
     },
     pageChange (page) {
-      this.curPage = page
+      this.curPage = page - 1
     }
   },
   components: {

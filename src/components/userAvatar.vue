@@ -8,7 +8,7 @@
       <div class="userinfo">
         <ul @click="proxyClick">
           <li>
-            <el-link :underline="false" @click="$router.push({name: 'User', params: {username: userInfo.loginname}})">
+            <el-link :underline="false" @click="$router.push({name: 'UserLately', params: {username: userInfo.loginname}})">
               {{userInfo.loginname}}
             </el-link>
           </li>

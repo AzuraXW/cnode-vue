@@ -5,7 +5,11 @@
       <headerVue></headerVue>
         <div class="wrapper">
           <el-scrollbar>
-            <router-view/>
+            <transition name="route">
+              <keep-alive>
+                <router-view/>
+              </keep-alive>
+            </transition>
           </el-scrollbar>
         </div>
     </div>
@@ -76,5 +80,13 @@ export default {
       background-color: red;
     }
   }
+}
+.route-enter, .route-leave-to {
+  transform: translateX(-100%);
+  opacity: .6;
+}
+.router-enter-to, .router-leave{
+  transform: translateX(0);
+  opacity: 1;
 }
 </style>

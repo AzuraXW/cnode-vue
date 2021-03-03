@@ -30,7 +30,12 @@
           <div slot="header">
              回复
           </div>
+          <noData
+            v-if="topicDetail.replies.length<=0"
+            text="无回复"
+          ></noData>
           <replyList
+            v-else
             :reply_list="topicDetail.replies"
             :loginname="topicDetail.author.loginname"
             @replyComment="openReplyDialog"
@@ -38,7 +43,7 @@
         </el-card>
         <el-card class="mt-25">
           <div slot="header">
-             新建评论
+             新建回复
           </div>
           <div class="edit-area">
             <mavon-editor
@@ -250,6 +255,7 @@ export default {
     }
     h1{
       font-size: 22px;
+      user-select: all;
     }
     .info{
       color: #999;
@@ -258,6 +264,7 @@ export default {
         display: inline-block;
         margin-right: 15px;
         position: relative;
+        user-select: all;
         &:not(:last-child)::after {
           content: '';
           display: block;
@@ -274,7 +281,5 @@ export default {
     }
   }
   padding: 25px;
-  .right{
-  }
 }
 </style>

@@ -2,8 +2,9 @@
   <div class="page-user">
     <el-row>
       <el-col :lg="18" :md="17" :sm="16">
-        <router-view>
-        </router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </el-col>
       <el-col :lg="6" :md="7" :sm="8" style="padding-left:25px" v-response="{size: 'xs', resFunc(el, inRange) {
         if (inRange) {
