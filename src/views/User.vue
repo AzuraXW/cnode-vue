@@ -25,8 +25,9 @@
             </div>
             <div class="userinfo-content">
               <p>积分: {{ userDetail.score }}</p>
-              <a :href="'https://github.com/' + userDetail.githubUsername" target="_blank">@{{userDetail.githubUsername}}</a>
               <p>注册时间{{userDetail.create_at | datesub}}</p>
+              <p><a :href="'https://github.com/' + userDetail.githubUsername" target="_blank">@{{userDetail.githubUsername}}</a></p>
+              <p><router-link :to="{name: 'UserCollect'}">话题收藏</router-link></p>
             </div>
           </div>
         </el-card>
@@ -63,6 +64,8 @@ export default {
       }
       if (res.success) {
         this.userDetail = res.data
+        console.log(res.data)
+        this.$store.commit('setPageUserInfo', res.data)
         this.loading = false
       }
 

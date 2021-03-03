@@ -9,7 +9,10 @@ export default new Vuex.Store({
     title: '全部',
     loginStatus: false,
     accesstoken: '',
-    userInfo: {}
+    // 当前登录用户的信息
+    userInfo: {},
+    // 用户页面用户的信息
+    pageUserInfo: {}
   },
   mutations: {
     changeMenuVisible (state) {
@@ -26,6 +29,9 @@ export default new Vuex.Store({
     },
     setAccesstoken (state, payload) {
       state.accesstoken = payload
+    },
+    setPageUserInfo (state, payload) {
+      state.pageUserInfo = payload
     }
   },
   actions: {

@@ -7,6 +7,13 @@ button.none{
     background-color: transparent;
     border: 0;
 }
+a{
+    color: #7f44b5;
+    text-decoration: none;
+}
+a:hover{
+    color: #6ba44e;
+}
 .gray-14{
     font-size: 14px;
     color: #999;

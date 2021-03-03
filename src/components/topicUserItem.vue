@@ -35,6 +35,7 @@ export default {
     margin-left: 5px;
     cursor: pointer;
   }
+
   .last-date{
     text-align: right;
     display: inline-block;

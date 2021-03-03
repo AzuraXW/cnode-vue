@@ -14,7 +14,7 @@
           }
         }">
           <div class="avatar">
-            <router-link :to="{name: 'User', params: { username: topic.author.loginname }}">
+            <router-link :to="{name: 'UserLately', params: { username: topic.author.loginname }}">
               <img :src="topic.author.avatar_url" alt="">
             </router-link>
             <div class="count">

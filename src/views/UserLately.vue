@@ -5,11 +5,11 @@
           <span>最近创建的话题</span>
         </div>
         <div class="recent_topics">
-          <topicItem
+          <topicUserItem
             v-for="topic in userDetail.recent_topics"
             :key="topic.id"
             :topic="topic"
-          ></topicItem>
+          ></topicUserItem>
         </div>
       </el-card>
       <el-card class="box-card">
@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     ...mapState({
-      userDetail: 'userInfo'
+      userDetail: 'pageUserInfo'
     })
   }
 }
