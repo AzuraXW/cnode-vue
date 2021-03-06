@@ -8,6 +8,7 @@ import UserCollect from '../views/UserCollect.vue'
 import Login from '../views/Login.vue'
 import CreateTopic from '../views/CreateTopic.vue'
 import Topic from '../views/Topic.vue'
+import UserMessage from '../views/UserMessage.vue'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -39,6 +40,12 @@ const routes = [
         path: 'collect',
         name: 'UserCollect',
         component: UserCollect,
+        props: true
+      },
+      {
+        path: 'message',
+        name: 'UserMessage',
+        component: UserMessage,
         props: true
       }
     ]

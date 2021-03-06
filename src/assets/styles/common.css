@@ -38,3 +38,15 @@ a:hover{
 .bg-success{
     background-color: #6ba44e;
 }
+@media (max-width: 768px) {
+    .xs-right{
+        margin-top: 25px;
+        margin-left: 0;
+    }
+}
+@media (min-width: 768px) {
+    .xs-right{
+        margin-top: 0;
+        padding-left: 25px;
+    }
+}

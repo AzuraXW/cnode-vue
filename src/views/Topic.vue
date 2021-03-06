@@ -57,10 +57,16 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :lg="6" :md="7" :sm="8" class="right">
+      <el-col :lg="6" :md="7" :sm="8" class="right xs-right">
         <el-card>
           <div slot="header">
             作者
+          </div>
+          <div class="userinfo">
+            <div class="userinfo-header">
+              <avatar shape="square" :size="60" :avatar_url="topicDetail.author.avatar_url" :username="topicDetail.author.loginname"></avatar>
+              <span class="name">{{ topicDetail.author.loginname }}</span>
+            </div>
           </div>
         </el-card>
       </el-col>
@@ -85,6 +91,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import avatar from '@/components/avatar'
 import replyList from '@/components/replyList'
 import toolbars from '@/utils/markdown-edit-toolbar-config'
 import debounce from '@/utils/debounce.js'
@@ -96,7 +103,8 @@ export default {
       tab: {
         share: '分享',
         good: '精华',
-        job: '招聘'
+        job: '招聘',
+        ask: '问答'
       },
       collect: false,
       toolbars,
@@ -233,7 +241,8 @@ export default {
   },
   computed: mapState(['accesstoken', 'loginStatus']),
   components: {
-    replyList
+    replyList,
+    avatar
   }
 }
 </script>

@@ -8,13 +8,21 @@
       <div class="userinfo">
         <ul @click="proxyClick">
           <li>
-            <el-link :underline="false" @click="$router.push({name: 'UserLately', params: {username: userInfo.loginname}})">
+            <el-link
+              :underline="false"
+              @click="$router.push({name: 'UserLately', params: {username: userInfo.loginname}})"
+            >
               {{userInfo.loginname}}
             </el-link>
           </li>
           <li>积分: {{userInfo.score}}</li>
           <li>{{userInfo.create_at | datesub}}加入CNode社区</li>
-          <li><el-link :underline="false">未读消息: {{messageCount}}</el-link></li>
+          <li>
+            <el-link
+              :underline="false"
+              @click="$router.push({name: 'UserMessage', params: {username: userInfo.loginname}})"
+            >未读消息: {{messageCount}}</el-link>
+          </li>
           <li><el-link :underline="false" @click="$router.push({name: 'CreateTopic'})">发布主题</el-link></li>
           <li><el-link :underline="false" @click="loginout">退出</el-link></li>
         </ul>

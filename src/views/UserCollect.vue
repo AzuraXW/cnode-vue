@@ -34,6 +34,7 @@ export default {
     }
   },
   mounted () {
+    this.changeTitle(`${this.username}的个人主页-收藏列表`)
     this.getCollectList()
   },
   methods: {

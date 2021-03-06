@@ -50,3 +50,9 @@ export function deCollect ({ accesstoken, topicId }) {
 export function getCollects (username) {
   return get(`/topic_collect/${username}`)
 }
+
+export function getMessage (accesstoken) {
+  return get('/messages', {
+    accesstoken
+  })
+}

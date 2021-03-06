@@ -71,6 +71,9 @@ export default {
       }
     }
   },
+  mounted () {
+    this.changeTitle('发布主题')
+  },
   methods: {
     onSubmit () {
       if (!this.accesstoken) {

@@ -22,15 +22,13 @@ export default {
       disabledLoadMore: false
     }
   },
-  created () {
+  async mounted () {
+    this.getTopics()
     if (this.$route.fullPath === '/') {
       this.changeTitle('全部')
     } else {
       this.matchTtitle(this.tab)
     }
-  },
-  async mounted () {
-    this.getTopics()
   },
   methods: {
     // 获取主题列表

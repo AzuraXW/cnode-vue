@@ -4,11 +4,9 @@
     <div :class="{collapse: leftMenuVisible}" class="content" @click="collapseMenu">
       <headerVue></headerVue>
         <div class="wrapper">
-          <el-scrollbar>
-            <transition name="route">
-              <keep-alive>
-                <router-view/>
-              </keep-alive>
+          <el-scrollbar :noresize="false" wrapClass="custom-scroll-wrap">
+            <transition name="route" mode="out-in">
+              <router-view/>
             </transition>
           </el-scrollbar>
         </div>
@@ -74,19 +72,29 @@ export default {
       height: 100%;
     }
     .el-scrollbar__wrap{
-      overflow: auto;
+      overflow-x: hidden;
     }
     .el-scrollbar__thumb{
       background-color: red;
     }
   }
 }
-.route-enter, .route-leave-to {
-  transform: translateX(-100%);
-  opacity: .6;
+.route-enter{
+ opacity: 0;
 }
-.router-enter-to, .router-leave{
-  transform: translateX(0);
-  opacity: 1;
+.route-enter-active{
+ transition: 0.5s;
+}
+.route-enter-to{
+ opacity: 1;
+}
+.route-leave{
+ opacity: 1;
+}
+.route-leave-to{
+ opacity:0;
+}
+.route-leave-active{
+ transition: 0.5s;
 }
 </style>

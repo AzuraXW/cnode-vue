@@ -2,19 +2,11 @@
   <div class="page-user">
     <el-row>
       <el-col :lg="18" :md="17" :sm="16">
-        <keep-alive>
+        <transition name="route" mode="out-in">
           <router-view></router-view>
-        </keep-alive>
+        </transition>
       </el-col>
-      <el-col :lg="6" :md="7" :sm="8" style="padding-left:25px" v-response="{size: 'xs', resFunc(el, inRange) {
-        if (inRange) {
-          el.style.paddingLeft = '0'
-          el.style.marginTop = '25px'
-        } else {
-          el.style.paddingLeft = '25px'
-          el.style.marginTop = '0'
-        }
-      }}">
+      <el-col :lg="6" :md="7" :sm="8" class="xs-right">
         <el-card class="box-card user-box">
           <div slot="header" class="card-header">
             <span>个人信息</span>
@@ -48,7 +40,7 @@ export default {
     }
   },
   created () {
-    this.changeTitle(`@${this.username}的个人主页`)
+    this.changeTitle(`${this.username}的个人主页`)
     this.getUserDetail()
   },
   methods: {
@@ -65,7 +57,6 @@ export default {
       }
       if (res.success) {
         this.userDetail = res.data
-        console.log(res.data)
         this.$store.commit('setPageUserInfo', res.data)
         this.loading = false
       }
@@ -76,7 +67,6 @@ export default {
       }
 
       if (!res.data.recent_replies.length) {
-        console.log('123')
         this.$nodata('.recent_replies')
       }
     }
@@ -90,22 +80,22 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .page-user{
   padding: 25px;
   .user-box{
     position: sticky;
     top: 70px;
   }
-  .userinfo{
-    .userinfo-header{
-      display: flex;
-      align-items: center;
-      .name{
-        display: inline-block;
-        margin-left: 10px;
-        color: #999;
-      }
+}
+.userinfo{
+  .userinfo-header{
+    display: flex;
+    align-items: center;
+    .name{
+      display: inline-block;
+      margin-left: 10px;
+      color: #999;
     }
   }
 }

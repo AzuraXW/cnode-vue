@@ -26,7 +26,11 @@
           <div class="last_reply_at gray-14">最后编辑时间：{{topic.last_reply_at.substr(0, 10)}}</div>
         </el-col>
         <el-col :lg="19" :offset="1" :md="17" :sm="16" :xs="{span: 24, offset: 0}">
-          <router-link :to="{name: 'Topic', params: {id: topic.id}}"><h2 class="title ellipsis" :title="topic.title">{{topic.title}}</h2></router-link>
+          <router-link :to="{name: 'Topic', params: {id: topic.id}}">
+            <h2 class="title ellipsis" :title="topic.title">{{topic.title}}
+              <el-tag :type="tag.theme">{{tag.text}}</el-tag>
+            </h2>
+          </router-link>
           <div class="des">{{topic.content | fileterTag}}</div>
         </el-col>
       </el-row>
@@ -42,6 +46,32 @@ export default {
       const reg = /<\/?.+?\/?>/g
       if (value.length < 250) return value.replace(reg, '')
       return value.replace(reg, '').substr(0, 250) + '...'
+    }
+  },
+  computed: {
+    tag () {
+      const tab = {
+        share: '分享',
+        good: '精华',
+        job: '招聘',
+        ask: '问答'
+      }
+      const theme = {
+        share: 'info',
+        good: 'success',
+        job: 'warning',
+        ask: 'danger'
+      }
+      if (this.topic.top) {
+        return {
+          text: '置顶',
+          theme: 'success'
+        }
+      }
+      return {
+        text: tab[this.topic.tab],
+        theme: theme[this.topic.tab]
+      }
     }
   }
 }
@@ -70,9 +100,11 @@ export default {
     font-size: 26px;
     color: #333;
     text-decoration: none;
-    &:hover{
-      text-decoration: underline;
-      text-decoration-style: dashed;
+    display: flex;
+    align-items: center;
+    span{
+      display: inline-block;
+      margin-left: 20px;
     }
   }
   .des{
