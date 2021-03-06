@@ -46,7 +46,16 @@ const routes = [
         path: 'message',
         name: 'UserMessage',
         component: UserMessage,
-        props: true
+        props: true,
+        beforeEnter (to, from, next) {
+          setTimeout(() => {
+            if (to.params.username === store.state.userInfo.loginname) {
+              next()
+            } else {
+              router.back()
+            }
+          }, 500)
+        }
       }
     ]
   },

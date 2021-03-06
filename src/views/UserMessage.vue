@@ -44,12 +44,11 @@ export default {
       if (res.success) {
         this.hasReadMessages = res.data.has_read_messages
         this.hasnotReadMessages = res.data.hasnot_read_messages
-        console.log(res)
       }
     }
   },
   computed: {
-    ...mapState(['accesstoken'])
+    ...mapState(['accesstoken', 'userInfo'])
   },
   components: {
     messageList

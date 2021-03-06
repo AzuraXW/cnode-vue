@@ -23,7 +23,7 @@
               </el-button>
             </div>
           </div>
-          <article id="nice" v-html="topicDetail.content">
+          <article id="nice" v-html="renderConent">
           </article>
         </el-card>
         <el-card class="mt-25">
@@ -95,6 +95,8 @@ import avatar from '@/components/avatar'
 import replyList from '@/components/replyList'
 import toolbars from '@/utils/markdown-edit-toolbar-config'
 import debounce from '@/utils/debounce.js'
+import marked from 'marked'
+import hljs from 'highlight.js'
 export default {
   props: ['id'],
   data () {
@@ -133,7 +135,8 @@ export default {
     async getTopicDetail () {
       const res = await this.$api.topic.getTopicsDateil({
         topicId: this.id,
-        accesstoken: this.accesstoken
+        accesstoken: this.accesstoken,
+        mdrender: false
       })
       this.topicDetail = res.data
       this.collect = res.data.is_collect
@@ -239,7 +242,17 @@ export default {
       }
     }
   },
-  computed: mapState(['accesstoken', 'loginStatus']),
+  computed: {
+    ...mapState(['accesstoken', 'loginStatus']),
+    renderConent () {
+      const mdhtml = marked(this.topicDetail.content, {
+        highlight (code) {
+          return hljs.highlightAuto(code).value
+        }
+      })
+      return mdhtml
+    }
+  },
   components: {
     replyList,
     avatar
