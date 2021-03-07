@@ -16,6 +16,13 @@
             </div>
             <div class="right" v-if="loginStatus">
               <el-button
+              type="success"
+              @click.native="jumpEdit"
+              v-if="myTopic"
+              >
+                编辑
+              </el-button>
+              <el-button
                 :type="collect ? 'info' : 'success'"
                 @click="changeCollect"
               >
@@ -216,7 +223,6 @@ export default {
       this.replyComment.content = '@' + replyName + ' '
       this.dialog.title = '回复' + replyName
       this.dialog.visible = true
-      console.log('回复的id是', replyId, replyName)
     },
 
     async onRreplyComment () {
@@ -240,10 +246,13 @@ export default {
       if (isReply) {
         this.dialog.visible = false
       }
+    },
+    jumpEdit () {
+      this.$router.push({ name: 'EditTopic', params: { id: this.topicDetail.id } })
     }
   },
   computed: {
-    ...mapState(['accesstoken', 'loginStatus']),
+    ...mapState(['accesstoken', 'loginStatus', 'loginname']),
     renderConent () {
       const mdhtml = marked(this.topicDetail.content, {
         highlight (code) {
@@ -251,6 +260,9 @@ export default {
         }
       })
       return mdhtml
+    },
+    myTopic () {
+      return this.topicDetail.author.loginname === this.$store.getters.loginname
     }
   },
   components: {

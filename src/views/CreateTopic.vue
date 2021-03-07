@@ -3,7 +3,7 @@
     <el-row>
       <el-card>
         <div slot="header">
-          发布主题
+          {{topicEditId ? '编辑' : '发布'}}主题
         </div>
         <div class="edit-area">
           <el-form
@@ -39,6 +39,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+  props: ['topicEditId'],
   data () {
     return {
       createForm: {
@@ -46,6 +47,7 @@ export default {
         title: '',
         content: ''
       },
+      editTopicDateil: {},
       tabOptions: [
         {
           value: 'share',
@@ -72,6 +74,11 @@ export default {
     }
   },
   mounted () {
+    if (this.topicEditId) {
+      this.changeTitle('编辑主题')
+      this.getEditTopicDateil()
+      return
+    }
     this.changeTitle('发布主题')
   },
   methods: {
@@ -83,11 +90,28 @@ export default {
         })
         return
       }
+      // 编辑主题类型
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.submitCreateForm()
+          if (this.isEdit) {
+            this.submitEditTopic()
+          } else {
+            this.submitCreateForm()
+          }
         }
       })
+    },
+    async getEditTopicDateil () {
+      const res = await this.$api.topic.getTopicsDateil({
+        topicId: this.topicEditId,
+        mdrender: false
+      })
+      if (res.success) {
+        this.editTopicDateil = res.data
+        this.createForm.title = res.data.title
+        this.createForm.tab = res.data.tab
+        this.createForm.content = res.data.content
+      }
     },
     async submitCreateForm () {
       const options = { ...this.createForm, accesstoken: this.accesstoken }
@@ -103,9 +127,31 @@ export default {
       if (res.success) {
         this.$router.push({ name: 'Topic', params: { id: res.topic_id } })
       }
+    },
+    async submitEditTopic () {
+      const options = {
+        ...this.createForm,
+        accesstoken: this.accesstoken,
+        topic_id: this.topicEditId
+      }
+      const res = await this.$api.topic.update(options)
+      if (res.success) {
+        this.$msg({
+          type: 'success',
+          message: '编辑成功！'
+        })
+        this.$router.push({ name: 'Topic', params: { id: res.topic_id } })
+      } else {
+        this.$router.back()
+      }
     }
   },
-  computed: mapState(['accesstoken', 'loginStatus'])
+  computed: {
+    ...mapState(['accesstoken', 'loginStatus', 'loginInfo']),
+    isEdit () {
+      return !!this.topicEditId
+    }
+  }
 }
 </script>
 
@@ -121,6 +167,7 @@ export default {
   }
   .editor{
     min-height: 450px;
+    max-height: 600px;
   }
   .publish-btn{
     margin-top: 25px;

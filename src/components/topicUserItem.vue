@@ -1,10 +1,10 @@
 <template>
   <div class="topic-item">
     <el-row type="flex" align="middle">
-      <el-col :span="1">
+      <el-col :span="1" :xs="3">
         <el-avatar shape="square" :size="35" :src="topic.author.avatar_url"></el-avatar>
       </el-col>
-      <el-col :span="19" :offset="1">
+      <el-col :span="19" :xs="17" :offset="1">
         <router-link :to="{ name: 'Topic', params: { id: topic.id } }">
           <h2 class="ellipsis">{{topic.title}}</h2>
         </router-link>

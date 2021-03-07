@@ -46,3 +46,7 @@ export function ups (options) {
     accesstoken
   })
 }
+
+export function update (options) {
+  return post('/topics/update', options)
+}

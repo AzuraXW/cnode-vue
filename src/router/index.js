@@ -77,6 +77,23 @@ const routes = [
     name: 'Topic',
     component: Topic,
     props: true
+  },
+  {
+    path: '/topic/:id/edit',
+    name: 'EditTopic',
+    component: CreateTopic,
+    props: (route) => ({
+      topicEditId: route.params.id
+    }),
+    beforeEnter (to, from, next) {
+      setTimeout(() => {
+        if (store.state.loginStatus) {
+          next()
+        } else {
+          router.back()
+        }
+      }, 500)
+    }
   }
 ]
 

@@ -2,7 +2,7 @@
   <div class="item-wrapper">
     <el-card shadow="always" class="item">
       <el-row>
-        <el-col :lg="4" :md="6" :sm="7"
+        <el-col :lg="3" :md="6" :sm="7"
         v-response="{
           size: 'xs',
           resFunc (el, inRange) {
@@ -25,7 +25,7 @@
           <div class="create_at gray-14">创建时间：{{topic.create_at.substr(0, 10)}}</div>
           <div class="last_reply_at gray-14">最后编辑时间：{{topic.last_reply_at.substr(0, 10)}}</div>
         </el-col>
-        <el-col :lg="19" :offset="1" :md="17" :sm="16" :xs="{span: 24, offset: 0}">
+        <el-col :lg="21" :md="17" :sm="16" :xs="{span: 24, offset: 0}">
           <router-link :to="{name: 'Topic', params: {id: topic.id}}">
             <h2 class="title ellipsis" :title="topic.title">{{topic.title}}
               <el-tag :type="tag.theme">{{tag.text}}</el-tag>
@@ -44,8 +44,8 @@ export default {
   filters: {
     fileterTag: function (value) {
       const reg = /<\/?.+?\/?>/g
-      if (value.length < 250) return value.replace(reg, '')
-      return value.replace(reg, '').substr(0, 250) + '...'
+      if (value.length < 350) return value.replace(reg, '')
+      return value.replace(reg, '').substr(0, 350) + '...'
     }
   },
   computed: {

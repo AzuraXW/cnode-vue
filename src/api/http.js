@@ -19,17 +19,10 @@ instance.interceptors.response.use(
     }
   },
   error => {
-    if (error.response.status === 403) {
-      Message({
-        type: 'error',
-        message: '网络请求超时，请刷新页面！'
-      })
-    } else if (error.response.status === 401) {
-      Message({
-        type: 'error',
-        message: error.response.data.error_msg
-      })
-    }
+    Message({
+      type: 'error',
+      message: error.response.data.error_msg
+    })
     return Promise.reject(error)
   }
 )

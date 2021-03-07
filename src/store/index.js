@@ -14,6 +14,11 @@ export default new Vuex.Store({
     // 用户页面用户的信息
     pageUserInfo: {}
   },
+  getters: {
+    loginname: state => {
+      return state.userInfo.loginname
+    }
+  },
   mutations: {
     changeMenuVisible (state) {
       state.leftMenuVisible = !state.leftMenuVisible

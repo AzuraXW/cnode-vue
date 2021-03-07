@@ -27,16 +27,10 @@
               v-if="reply.author.loginname === loginname"
             >作者</el-tag>
           </div>
-          <div class="content_reply" v-html="reply.content"></div>
+          <div class="content_reply" v-md="reply.content"></div>
         </div>
         <div class="right">
-          <span>
-            <i class="iconfont icon-dianzan1"
-              data-type="ups"
-            ></i>
-            <span>{{reply.ups.length}}</span>
-          </span>
-          <span>
+          <span class="reply-icon-wrapper">
             <i class="iconfont icon-huifu"
               data-type="reply"
               :data-replyname="reply.author.loginname"
@@ -55,7 +49,7 @@
         <li v-for="reply in replyClues" :key="reply.id" class="reply-wrapper">
           <img :src="reply.author.avatar_url" alt="">
           <div class="reply">
-            <div v-html="reply.content"></div>
+            <div v-md="reply.content"></div>
             <a :href="'#' + reply.id" title="查看原文">
               <i class="el-icon-top"></i>
             </a>
@@ -68,6 +62,8 @@
 
 <script>
 import Avatar from './avatar.vue'
+import marked from 'marked'
+// import hljs from 'highlight.js'
 export default {
   props: ['reply_list', 'loginname'],
   components: {
@@ -79,7 +75,12 @@ export default {
       modelVisible: false
     }
   },
-  mounted () {
+  directives: {
+    md: {
+      inserted (el, bind) {
+        el.innerHTML = marked(bind.value)
+      }
+    }
   },
   methods: {
     onProxyClick (e) {
@@ -150,6 +151,12 @@ export default {
         this.replyClues = this.findClue(parent.dataset.replyid)
       }
     }
+  },
+  filters: {
+    render (value) {
+      console.log(value)
+      return marked(value)
+    }
   }
 }
 </script>
@@ -174,6 +181,10 @@ export default {
     }
     .right{
       span{
+        display: inline-block;
+        &:hover{
+          color: turquoise;
+        }
         margin-left: 10px;
         i{
           font-size: 18px;
