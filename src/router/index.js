@@ -2,13 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store'
 import Home from '../views/Home.vue'
-import User from '../views/User.vue'
-import UserLately from '../views/UserLately.vue'
-import UserCollect from '../views/UserCollect.vue'
-// import Login from '../views/Login.vue'
-import CreateTopic from '../views/CreateTopic.vue'
-import Topic from '../views/Topic.vue'
-import UserMessage from '../views/UserMessage.vue'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 
@@ -28,24 +21,24 @@ const routes = [
   },
   {
     path: '/user/:username',
-    component: User,
+    component: () => import(/* webpackChunkName: "user" */ '../views/User.vue'),
     props: true,
     children: [
       {
         path: '',
         name: 'UserLately',
-        component: UserLately
+        component: () => import(/* webpackChunkName: "user" */ '../views/UserLately.vue')
       },
       {
         path: 'collect',
         name: 'UserCollect',
-        component: UserCollect,
+        component: () => import(/* webpackChunkName: "user" */ '../views/UserCollect.vue'),
         props: true
       },
       {
         path: 'message',
         name: 'UserMessage',
-        component: UserMessage,
+        component: () => import(/* webpackChunkName: "user" */ '../views/UserMessage.vue'),
         props: true,
         beforeEnter (to, from, next) {
           setTimeout(() => {
@@ -62,7 +55,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
     props: (route) => ({
       from: route.query.from
     })
@@ -70,18 +63,18 @@ const routes = [
   {
     path: '/topic/create',
     name: 'CreateTopic',
-    component: CreateTopic
+    component: () => import(/* webpackChunkName: "topic" */ '../views/CreateTopic.vue')
   },
   {
     path: '/topic/:id',
     name: 'Topic',
-    component: Topic,
+    component: () => import(/* webpackChunkName: "topic" */ '../views/Topic.vue'),
     props: true
   },
   {
     path: '/topic/:id/edit',
     name: 'EditTopic',
-    component: CreateTopic,
+    component: () => import(/* webpackChunkName: "topic" */ '../views/CreateTopic.vue'),
     props: (route) => ({
       topicEditId: route.params.id
     }),

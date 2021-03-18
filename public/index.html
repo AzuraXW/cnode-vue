@@ -8,6 +8,9 @@
     <link rel="icon" href="//static2.cnodejs.org/public/images/cnode_icon_32.png" type="image/x-icon">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="stylesheet" href="https://ziyuan.fenxianglu.cn/js/highlight/styles/default.css">
+    <% if(htmlWebpackPlugin.options.isProd){ %>
+      <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <% } %>
   </head>
   <body>
     <noscript>
@@ -15,5 +18,14 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <% if(htmlWebpackPlugin.options.isProd){ %>
+      <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/vuex/3.5.1/vuex.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.2.0/vue-router.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/marked/1.2.7/marked.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <% } %>
   </body>
 </html>
