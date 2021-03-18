@@ -47,12 +47,33 @@ export function deCollect ({ accesstoken, topicId }) {
   })
 }
 
+/**
+ * 获取用户主题收藏列表
+ * @param {*} username
+ * @returns
+ */
 export function getCollects (username) {
   return get(`/topic_collect/${username}`)
 }
 
+/**
+ * 获取用户消息
+ * @param {*} accesstoken
+ * @returns
+ */
 export function getMessage (accesstoken) {
   return get('/messages', {
+    accesstoken
+  })
+}
+
+/**
+ * 标记所有已读消息
+ * @param {*} accesstoken
+ * @returns
+ */
+export function markAll (accesstoken) {
+  return post('/message/mark_all', {
     accesstoken
   })
 }

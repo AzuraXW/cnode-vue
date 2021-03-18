@@ -5,7 +5,7 @@ import Home from '../views/Home.vue'
 import User from '../views/User.vue'
 import UserLately from '../views/UserLately.vue'
 import UserCollect from '../views/UserCollect.vue'
-import Login from '../views/Login.vue'
+// import Login from '../views/Login.vue'
 import CreateTopic from '../views/CreateTopic.vue'
 import Topic from '../views/Topic.vue'
 import UserMessage from '../views/UserMessage.vue'
@@ -62,7 +62,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('../views/Login.vue'),
     props: (route) => ({
       from: route.query.from
     })

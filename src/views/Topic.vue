@@ -46,6 +46,8 @@
             :reply_list="topicDetail.replies"
             :loginname="topicDetail.author.loginname"
             @replyComment="openReplyDialog"
+            @ups="ups"
+            ref="replylist"
           ></replyList>
         </el-card>
         <el-card class="mt-25">
@@ -249,6 +251,17 @@ export default {
     },
     jumpEdit () {
       this.$router.push({ name: 'EditTopic', params: { id: this.topicDetail.id } })
+    },
+    // 点赞/取消点赞
+    async ups (replyId) {
+      const res = await this.$api.topic.ups({
+        replyId,
+        accesstoken: this.accesstoken
+      })
+      if (res.success) {
+        // 改变点赞按钮的状态
+        this.$refs.replylist.changeUpsView(res.action)
+      }
     }
   },
   computed: {

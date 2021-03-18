@@ -52,6 +52,12 @@ export default {
   },
   components: {
     messageList
+  },
+  watch: {
+    hasnotReadMessages (messages, old) {
+      if (messages.length === old.length) return
+      this.$api.user.markAll(this.accesstoken)
+    }
   }
 }
 </script>

@@ -19,10 +19,17 @@ instance.interceptors.response.use(
     }
   },
   error => {
-    Message({
-      type: 'error',
-      message: error.response.data.error_msg
-    })
+    if (error.response.status === 401) {
+      Message({
+        type: 'error',
+        message: '您还未登录'
+      })
+    } else {
+      Message({
+        type: 'error',
+        message: error.response.data.error_msg
+      })
+    }
     return Promise.reject(error)
   }
 )

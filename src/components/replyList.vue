@@ -19,7 +19,9 @@
         </div>
         <div class="center">
           <div class="content_header">
-            <!-- <router-link class="username" :to="{name: 'User', params: {username: reply.author.loginname}}">{{reply.author.loginname}}</router-link> -->
+            <a href="#">
+              {{reply.author.loginname}}
+            </a>
             <a :href="'#' + reply.id">{{index + 1}}楼, {{reply.create_at | datesub}}</a>
             <el-tag
               type="success"
@@ -30,12 +32,22 @@
           <div class="content_reply" v-md="reply.content"></div>
         </div>
         <div class="right">
-          <span class="reply-icon-wrapper">
-            <i class="iconfont icon-huifu"
-              data-type="reply"
-              :data-replyname="reply.author.loginname"
-            ></i>
-          </span>
+          <button class="assist-btn" @click="ups(reply.id, $event)">
+            <span>
+              <i :class="['iconfont', reply.is_uped ? 'icon-dianzan' : 'icon-zan']"></i>
+            </span>
+            <span>
+              {{ reply.ups.length }}
+            </span>
+          </button>
+          <button class="assist-btn">
+            <span class="reply-icon-wrapper reaction">
+              <i class="iconfont icon-huifu"
+                data-type="reply"
+                :data-replyname="reply.author.loginname"
+              ></i>
+            </span>
+          </button>
         </div>
       </li>
     </ul>
@@ -65,6 +77,7 @@ import Avatar from './avatar.vue'
 import marked from 'marked'
 // import hljs from 'highlight.js'
 export default {
+  name: 'replyList',
   props: ['reply_list', 'loginname'],
   components: {
     Avatar
@@ -72,7 +85,8 @@ export default {
   data () {
     return {
       replyClues: [],
-      modelVisible: false
+      modelVisible: false,
+      curUpsBtn: null
     }
   },
   directives: {
@@ -150,6 +164,23 @@ export default {
         this.replyClues = []
         this.replyClues = this.findClue(parent.dataset.replyid)
       }
+    },
+    // 通知父组件用户点击了点赞按钮
+    async ups (replyId, e) {
+      const target = e.target
+      let parentBtn = target.parentNode
+      while (parentBtn.className !== 'assist-btn' && parentBtn.tagName !== 'BUTTON') {
+        parentBtn = parentBtn.parentNode
+      }
+      this.curUpsBtn = parentBtn
+      this.$emit('ups', replyId)
+    },
+    changeUpsView (action) {
+      const increment = action === 'up' ? 1 : -1
+      const iconCls = action === 'up' ? 'iconfont icon-dianzan' : 'iconfont icon-zan'
+      this.curUpsBtn.querySelector('span:first-child i').className = iconCls
+      const count = this.curUpsBtn.querySelector('span:last-child').innerHTML
+      this.curUpsBtn.querySelector('span:last-child').innerHTML = parseInt(count) + increment
     }
   },
   filters: {
@@ -176,19 +207,30 @@ export default {
       margin-bottom: 20px;
       padding-bottom: 20px;
     }
-    .left, .right{
+    .left{
       width: 55px;
     }
     .right{
-      span{
-        display: inline-block;
-        &:hover{
-          color: turquoise;
+      width: 100px;
+      .assist-btn{
+        outline: none;
+        border: none;
+        background: transparent;
+        ~ &{
+          margin-left: 30px;
         }
-        margin-left: 10px;
+        span{
+          display: inline-block;
+          width: 20px;
+          text-align: center;
+        }
         i{
           font-size: 18px;
           cursor: pointer;
+          &.icon-zan:hover, &.icon-huifu:hover{
+            transition: all .3s;
+            color: rgb(135, 26, 207);
+          }
         }
       }
     }
