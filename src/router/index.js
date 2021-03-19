@@ -92,7 +92,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: process.env.NODE_ENV === 'production' ? 'hash' : 'history',
-  base: process.env.NODE_ENV === 'production' ? 'cnode' : '/',
+  base: process.env.NODE_ENV === 'production' ? 'cnode-vue' : '/',
   routes
 })
 router.beforeEach((to, from, next) => {
