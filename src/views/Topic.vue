@@ -73,7 +73,7 @@
           </div>
           <div class="userinfo">
             <div class="userinfo-header">
-              <avatar shape="square" :size="60" :avatar_url="topicDetail.author.avatar_url" :username="topicDetail.author.loginname"></avatar>
+              <avatar shape="circle" :size="60" :avatar_url="topicDetail.author.avatar_url" :username="topicDetail.author.loginname"></avatar>
               <span class="name">{{ topicDetail.author.loginname }}</span>
             </div>
           </div>
@@ -328,5 +328,13 @@ export default {
     }
   }
   padding: 25px;
+  .userinfo-header{
+    display: flex;
+    align-items: center;
+    .name{
+      display: inline-block;
+      margin-left: 20px;
+    }
+  }
 }
 </style>

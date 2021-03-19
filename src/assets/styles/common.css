@@ -43,6 +43,9 @@ a:hover{
         margin-top: 25px;
         margin-left: 0;
     }
+    .xs-hidden{
+        display: none;
+    }
 }
 @media (min-width: 768px) {
     .xs-right{

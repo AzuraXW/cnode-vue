@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <el-form label-width="120px" :model="loginModel" :rules="rules" ref="form">
+    <el-form label-width="120px" :model="loginModel" :rules="rules" ref="form" label-position="top">
       <el-form-item label="AccessToken" prop="accesstoken">
         <el-input v-model="loginModel.accesstoken"></el-input>
       </el-form-item>
@@ -57,9 +57,13 @@ export default {
 .login{
   display: flex;
   justify-content: center;
-  margin-top: 15%;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
   .el-form{
-    width: 30%;
+    width: 330px;
+    margin: 0 20px;
     button{
       width: 100%;
     }

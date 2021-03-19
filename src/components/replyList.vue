@@ -16,20 +16,20 @@
             :avatar_url="reply.author.avatar_url"
             shape="square"
           ></avatar>
-        </div>
-        <div class="center">
-          <div class="content_header">
-            <a href="#">
-              {{reply.author.loginname}}
-            </a>
-            <a :href="'#' + reply.id">{{index + 1}}楼, {{reply.create_at | datesub}}</a>
-            <el-tag
-              type="success"
-              size="mini"
-              v-if="reply.author.loginname === loginname"
-            >作者</el-tag>
+          <div class="main-content">
+            <div class="content_header">
+              <a href="#">
+                {{reply.author.loginname}}
+              </a>
+              <a :href="'#' + reply.id">{{index + 1}}楼, {{reply.create_at | datesub}}</a>
+              <el-tag
+                type="success"
+                size="mini"
+                v-if="reply.author.loginname === loginname"
+              >作者</el-tag>
+            </div>
+            <div class="content_reply" v-md="reply.content"></div>
           </div>
-          <div class="content_reply" v-md="reply.content"></div>
         </div>
         <div class="right">
           <button class="assist-btn" @click="ups(reply.id, $event)">
@@ -40,7 +40,7 @@
               {{ reply.ups.length }}
             </span>
           </button>
-          <button class="assist-btn">
+          <button class="assist-btn xs-hidden">
             <span class="reply-icon-wrapper reaction">
               <i class="iconfont icon-huifu"
                 data-type="reply"
@@ -202,16 +202,47 @@ export default {
   }
   .reply-item{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     &:not(:last-child){
       border-bottom: 1px solid #f0f0f0;
       margin-bottom: 20px;
       padding-bottom: 20px;
     }
     .left{
-      width: 55px;
+      flex-grow: 1;
+      display: flex;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+      .main-content{
+        margin-left: 25px;
+        .content_header{
+          font-size: 12px;
+          a{
+            display: inline-block;
+            margin-left: 5px;
+            text-decoration: none;
+            &.username{
+              color:cadetblue;
+              font-weight: bolder;
+            }
+          }
+        }
+        .content_reply{
+          margin-top: 5px;
+          margin-left: 20px;
+          p{
+            margin-top: 0px;
+          }
+          img{
+            width: 100%;
+          }
+        }
+      }
     }
     .right{
-      width: 100px;
+      width: max-content;
       .assist-btn{
         outline: none;
         border: none;
@@ -223,6 +254,10 @@ export default {
           display: inline-block;
           width: 20px;
           text-align: center;
+          color: rgb(185, 185, 185);
+          &:nth-child(2) {
+            font-size: 14px;
+          }
         }
         i{
           font-size: 18px;
@@ -231,28 +266,6 @@ export default {
             transition: all .3s;
             color: rgb(135, 26, 207);
           }
-        }
-      }
-    }
-    .center{
-      flex: 1;
-      .content_header{
-        font-size: 12px;
-        a{
-          display: inline-block;
-          margin-left: 5px;
-          text-decoration: none;
-          &.username{
-            color:cadetblue;
-            font-weight: bolder;
-          }
-        }
-      }
-      .content_reply{
-        margin-top: 5px;
-        margin-left: 20px;
-        p{
-          margin-top: 0px;
         }
       }
     }
